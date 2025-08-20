@@ -1,0 +1,52 @@
+<template>
+    <lightning-card title={headerTextVal} class="slds-p-around_medium">
+        
+        <!-- Spinner inside the card instead of full screen -->
+        <template if:true={showLoadingSpinner}>
+            <div class="slds-is-relative">
+                <lightning-spinner alternative-text="Uploading..." size="medium"></lightning-spinner>
+            </div>
+        </template>
+
+        <!-- Centered Upload Section -->
+        <div class="slds-grid slds-grid_vertical slds-align_absolute-center slds-p-around_medium">
+            
+            <!-- File Upload -->
+            <div class="slds-m-bottom_medium slds-text-align_center">
+                <lightning-input 
+                    label="Upload File" 
+                    name="fileUploader" 
+                    onchange={handleFilesChange} 
+                    type="file"
+                    accept=".csv">
+                </lightning-input>
+            </div>
+
+            <!-- Selected File Name -->
+            <template if:true={fileName}>
+                <p class="slds-text-body_small slds-m-bottom_medium">{fileName}</p>
+            </template>
+
+            <!-- Upload Button (Aligned Below File Upload) -->
+            <div class="slds-m-top_medium">
+                <lightning-button 
+                    label={UploadFile} 
+                    onclick={handleSave} 
+                    variant="brand" 
+                    disabled={disableSaveBtn}>
+                </lightning-button>
+            </div>
+        </div>
+
+        <!-- Show batch progress inside the card with SLDS styling -->
+        <template if:true={batchStatus}>
+            <div class="slds-m-top_medium slds-text-align_center">
+                <p class="slds-badge slds-text-wrap slds-p-around_x-small"
+                    style="word-break: break-word; white-space: normal; max-width: 100%;">
+                        {batchStatus}
+                    </p>
+            </div>
+        </template>
+
+    </lightning-card>
+</template>
